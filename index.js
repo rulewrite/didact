@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 
 function createElement(
@@ -28,11 +27,15 @@ function createTextElement(text) {
   };
 }
 
-const element = React.createElement(
+const Didact = {
+  createElement,
+};
+
+const element = Didact.createElement(
   'div',
   { id: 'foo' },
-  React.createElement('a', null, 'bar'),
-  React.createElement('b')
+  Didact.createElement('a', null, 'bar'),
+  Didact.createElement('b')
 );
 const container = document.getElementById('root');
 ReactDOM.render(element, container);
