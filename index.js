@@ -1,5 +1,3 @@
-import ReactDOM from 'react-dom';
-
 function createElement(
   type,
   props,
@@ -27,8 +25,13 @@ function createTextElement(text) {
   };
 }
 
+function render(element, container) {
+  // TODO:
+}
+
 const Didact = {
   createElement,
+  render,
 };
 
 // https://github.com/parcel-bundler/parcel/issues/7234#issuecomment-1130291538
@@ -40,4 +43,4 @@ const element = (
   </div>
 );
 const container = document.getElementById('root');
-ReactDOM.render(element, container);
+Didact.render(element, container);
