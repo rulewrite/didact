@@ -31,11 +31,13 @@ const Didact = {
   createElement,
 };
 
-const element = Didact.createElement(
-  'div',
-  { id: 'foo' },
-  Didact.createElement('a', null, 'bar'),
-  Didact.createElement('b')
+// https://github.com/parcel-bundler/parcel/issues/7234#issuecomment-1130291538
+/** @jsxRuntime classic @jsx Didact.createElement */
+const element = (
+  <div id="foo">
+    <a>bar</a>
+    <b />
+  </div>
 );
 const container = document.getElementById('root');
 ReactDOM.render(element, container);
