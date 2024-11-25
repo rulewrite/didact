@@ -1,5 +1,3 @@
-import ReactDOM from 'react-dom';
-
 function createElement(
   type,
   props,
@@ -27,8 +25,32 @@ function createTextElement(text) {
   };
 }
 
+function isProperty(key) {
+  return key !== 'children';
+}
+
+function render(element, container) {
+  const dom =
+    element.type == 'TEXT_ELEMENT'
+      ? document.createTextNode('')
+      : document.createElement(element.type);
+
+  Object.keys(element.props)
+    .filter(isProperty)
+    .forEach((name) => {
+      dom[name] = element.props[name];
+    });
+
+  element.props.children.forEach((child) => {
+    render(child, dom);
+  });
+
+  container.appendChild(dom);
+}
+
 const Didact = {
   createElement,
+  render,
 };
 
 // https://github.com/parcel-bundler/parcel/issues/7234#issuecomment-1130291538
@@ -40,4 +62,4 @@ const element = (
   </div>
 );
 const container = document.getElementById('root');
-ReactDOM.render(element, container);
+Didact.render(element, container);
