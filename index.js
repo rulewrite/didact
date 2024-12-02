@@ -75,7 +75,21 @@ function performUnitOfWork(fiber) {
     fiber.parent.dom.appendChild(fiber.dom);
   }
 
-  // TODO: 새 파이버 만들기
+  const elements = fiber.props.children;
+  let index = 0;
+  let prevSibling = null;
+
+  while (index < elements.length) {
+    const element = elements[index];
+
+    const newFiber = {
+      type: element.type,
+      props: element.props,
+      parent: fiber,
+      dom: null,
+    };
+  }
+
   // TODO: 다음 작업 단위 반환하기
 }
 
