@@ -88,6 +88,15 @@ function performUnitOfWork(fiber) {
       parent: fiber,
       dom: null,
     };
+
+    if (index === 0) {
+      fiber.child = newFiber;
+    } else {
+      prevSibling.sibling = newFiber;
+    }
+
+    prevSibling = newFiber;
+    index++;
   }
 
   // TODO: 다음 작업 단위 반환하기
