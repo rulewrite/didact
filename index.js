@@ -67,7 +67,14 @@ function workLoop(deadline) {
 requestIdleCallback(workLoop);
 
 function performUnitOfWork(fiber) {
-  // TODO: 돔 노드 추가
+  if (!fiber.dom) {
+    fiber.dom = createDom(fiber);
+  }
+
+  if (fiber.parent) {
+    fiber.parent.dom.appendChild(fiber.dom);
+  }
+
   // TODO: 새 파이버 만들기
   // TODO: 다음 작업 단위 반환하기
 }
