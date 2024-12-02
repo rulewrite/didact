@@ -99,7 +99,16 @@ function performUnitOfWork(fiber) {
     index++;
   }
 
-  // TODO: 다음 작업 단위 반환하기
+  if (fiber.child) {
+    return fiber.child;
+  }
+  let nextFiber = fiber;
+  while (nextFiber) {
+    if (nextFiber.sibling) {
+      return nextFiber.sibling;
+    }
+    nextFiber = nextFiber.parent;
+  }
 }
 
 const Didact = {
