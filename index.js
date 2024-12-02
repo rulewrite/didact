@@ -29,23 +29,23 @@ function isProperty(key) {
   return key !== 'children';
 }
 
-function render(element, container) {
+function createDom(fiber) {
   const dom =
-    element.type == 'TEXT_ELEMENT'
+    fiber.type == 'TEXT_ELEMENT'
       ? document.createTextNode('')
-      : document.createElement(element.type);
+      : document.createElement(fiber.type);
 
-  Object.keys(element.props)
+  Object.keys(fiber.props)
     .filter(isProperty)
     .forEach((name) => {
-      dom[name] = element.props[name];
+      dom[name] = fiber.props[name];
     });
 
-  element.props.children.forEach((child) => {
-    render(child, dom);
-  });
+  return dom;
+}
 
-  container.appendChild(dom);
+function render(element, container) {
+  // TODO: 다음 작업 단위(nextUnitOfWork) 값 설정하기
 }
 
 let nextUnitOfWork = null;
