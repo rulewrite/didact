@@ -45,7 +45,12 @@ function createDom(fiber) {
 }
 
 function render(element, container) {
-  // TODO: 다음 작업 단위(nextUnitOfWork) 값 설정하기
+  nextUnitOfWork = {
+    dom: container,
+    props: {
+      children: [element],
+    },
+  };
 }
 
 let nextUnitOfWork = null;
@@ -61,8 +66,10 @@ function workLoop(deadline) {
 
 requestIdleCallback(workLoop);
 
-function performUnitOfWork(nextUnitOfWork) {
-  // TODO:
+function performUnitOfWork(fiber) {
+  // TODO: 돔 노드 추가
+  // TODO: 새 파이버 만들기
+  // TODO: 다음 작업 단위 반환하기
 }
 
 const Didact = {
