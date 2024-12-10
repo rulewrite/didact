@@ -36,10 +36,20 @@ function createDom(fiber) {
   return dom;
 }
 
-const isProperty = (key) => key !== 'children';
+const isEvent = (key) => key.startsWith('on');
+const isProperty = (key) => key !== 'children' && !isEvent(key);
 const isNew = (prev, next) => (key) => prev[key] !== next[key];
 const isGone = (prev, next) => (key) => !(key in next);
 function updateDom(dom, prevProps, nextProps) {
+  // 변경된 이벤트 리스너 제거
+  Object.keys(prevProps)
+    .filter(isEvent)
+    .filter((key) => !(key in nextProps) || isNew(prevProps, nextProps)(key))
+    .forEach((name) => {
+      const eventType = name.toLowerCase().substring(2);
+      dom.removeEventListener(eventType, prevProps[name]);
+    });
+
   // 이전 프로퍼티 제거
   Object.keys(prevProps)
     .filter(isProperty)
@@ -54,6 +64,15 @@ function updateDom(dom, prevProps, nextProps) {
     .filter(isNew(prevProps, nextProps))
     .forEach((name) => {
       dom[name] = nextProps[name];
+    });
+
+  // 새 이벤트 리스너 추가
+  Object.keys(nextProps)
+    .filter(isEvent)
+    .filter(isNew(prevProps, nextProps))
+    .forEach((name) => {
+      const eventType = name.toLowerCase().substring(2);
+      dom.addEventListener(eventType, nextProps[name]);
     });
 }
 
