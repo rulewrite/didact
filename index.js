@@ -68,12 +68,14 @@ function render(element, container) {
     },
     alternate: currentRoot,
   };
+  deletions = [];
   nextUnitOfWork = wipRoot;
 }
 
 let nextUnitOfWork = null;
 let currentRoot = null;
 let wipRoot = null;
+let deletions = null;
 
 function workLoop(deadline) {
   let shouldYield = false;
@@ -143,7 +145,8 @@ function reconcileChildren(wipFiber, elements) {
       };
     }
     if (oldFiber && !sameType) {
-      // TODO: 기존 DOM 노드 제거
+      oldFiber.effectTag = 'DELETION';
+      deletions.push(oldFiber);
     }
 
     if (oldFiber) {
