@@ -25,27 +25,36 @@ function createTextElement(text) {
   };
 }
 
-function isProperty(key) {
-  return key !== 'children';
-}
-
 function createDom(fiber) {
   const dom =
     fiber.type == 'TEXT_ELEMENT'
       ? document.createTextNode('')
       : document.createElement(fiber.type);
 
-  Object.keys(fiber.props)
-    .filter(isProperty)
-    .forEach((name) => {
-      dom[name] = fiber.props[name];
-    });
+  updateDom(dom, {}, fiber.props);
 
   return dom;
 }
 
+const isProperty = (key) => key !== 'children';
+const isNew = (prev, next) => (key) => prev[key] !== next[key];
+const isGone = (prev, next) => (key) => !(key in next);
 function updateDom(dom, prevProps, nextProps) {
-  // TODO:
+  // 이전 프로퍼티 제거
+  Object.keys(prevProps)
+    .filter(isProperty)
+    .filter(isGone(prevProps, nextProps))
+    .forEach((name) => {
+      dom[name] = '';
+    });
+
+  // 변경되거나 새 props 설정
+  Object.keys(nextProps)
+    .filter(isProperty)
+    .filter(isNew(prevProps, nextProps))
+    .forEach((name) => {
+      dom[name] = nextProps[name];
+    });
 }
 
 function commitRoot() {
