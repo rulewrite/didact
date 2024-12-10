@@ -133,7 +133,14 @@ function reconcileChildren(wipFiber, elements) {
       };
     }
     if (element && !sameType) {
-      // TODO: 새 DOM 노드 생성
+      newFiber = {
+        type: element.type,
+        props: element.props,
+        dom: null,
+        parent: wipFiber,
+        alternate: null,
+        effectTag: 'PLACEMENT',
+      };
     }
     if (oldFiber && !sameType) {
       // TODO: 기존 DOM 노드 제거
