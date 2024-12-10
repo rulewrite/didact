@@ -120,7 +120,17 @@ function reconcileChildren(wipFiber, elements) {
     const element = elements[index];
     let newFiber = null;
 
-    // TODO: oldFiber와 element를 비교
+    const sameType = oldFiber && element && element.type == oldFiber.type;
+
+    if (sameType) {
+      // TODO: DOM 노드 업데이트
+    }
+    if (element && !sameType) {
+      // TODO: 새 DOM 노드 생성
+    }
+    if (oldFiber && !sameType) {
+      // TODO: 기존 DOM 노드 제거
+    }
 
     if (oldFiber) {
       oldFiber = oldFiber.sibling;
