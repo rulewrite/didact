@@ -59,7 +59,7 @@ function workLoop(deadline) {
   let shouldYield = false;
   while (nextUnitOfWork && !shouldYield) {
     nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
-    shouldYield = deadline.timeRemaining() < 1;
+    shouldYield = deadline.timeRemaining() < 60;
   }
   requestIdleCallback(workLoop);
 }
@@ -122,6 +122,23 @@ const element = (
   <div id="foo">
     <a>bar</a>
     <b />
+
+    <div>
+      hello
+      <div>
+        hello
+        <div>
+          hello
+          <div>
+            hello
+            <div>
+              hello
+              <div>hello</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 );
 const container = document.getElementById('root');
