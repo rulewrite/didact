@@ -123,7 +123,14 @@ function reconcileChildren(wipFiber, elements) {
     const sameType = oldFiber && element && element.type == oldFiber.type;
 
     if (sameType) {
-      // TODO: DOM 노드 업데이트
+      newFiber = {
+        type: oldFiber.type,
+        props: element.props,
+        dom: oldFiber.dom,
+        parent: wipFiber,
+        alternate: oldFiber,
+        effectTag: 'UPDATE',
+      };
     }
     if (element && !sameType) {
       // TODO: 새 DOM 노드 생성
