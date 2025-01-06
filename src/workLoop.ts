@@ -3,7 +3,7 @@ import { updateFunctionComponent } from './updateFunctionComponent';
 import { updateHostComponent } from './updateHostComponent';
 import { root } from './value';
 
-function workLoop(deadline) {
+export function workLoop(deadline) {
   let shouldYield = false;
   while (root.nextUnitOfWork && !shouldYield) {
     root.nextUnitOfWork = performUnitOfWork(root.nextUnitOfWork);
@@ -16,8 +16,6 @@ function workLoop(deadline) {
 
   requestIdleCallback(workLoop);
 }
-
-requestIdleCallback(workLoop);
 
 function performUnitOfWork(fiber) {
   const isFunctionComponent = fiber.type instanceof Function;

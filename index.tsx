@@ -1,6 +1,9 @@
 import { createElement } from './src/createElement';
 import { render } from './src/render';
 import { useState } from './src/updateFunctionComponent';
+import { workLoop } from './src/workLoop';
+
+requestIdleCallback(workLoop);
 
 const Didact = {
   render,
