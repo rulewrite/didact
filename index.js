@@ -167,7 +167,17 @@ function performUnitOfWork(fiber) {
   }
 }
 
+// 현재 진행 중(work in progress)인 fiber
+let wipFiber = null;
+// 현재 훅 인덱스
+let hookIndex = null;
+
 function updateFunctionComponent(fiber) {
+  wipFiber = fiber;
+  hookIndex = 0;
+  // 여러개의 훅을 지원하기 위한 훅 배열 추가
+  wipFiber.hooks = [];
+
   const children = [fiber.type(fiber.props)];
   reconcileChildren(fiber, children);
 }
