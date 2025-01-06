@@ -1,8 +1,9 @@
 import { commitWork } from './commit';
 import { createDom } from './handleDom';
+import { root } from './value';
 
 function commitRoot() {
-  deletions.forEach(commitWork);
+  root.deletions.forEach(commitWork);
   commitWork(wipRoot.child);
   currentRoot = wipRoot;
   wipRoot = null;
@@ -16,14 +17,13 @@ export function render(element, container) {
     },
     alternate: currentRoot,
   };
-  deletions = [];
+  root.deletions = [];
   nextUnitOfWork = wipRoot;
 }
 
 let nextUnitOfWork = null;
 let currentRoot = null;
 let wipRoot = null;
-let deletions = null;
 
 function workLoop(deadline) {
   let shouldYield = false;
@@ -99,7 +99,7 @@ export function useState(initial) {
       alternate: currentRoot,
     };
     nextUnitOfWork = wipRoot;
-    deletions = [];
+    root.deletions = [];
   };
 
   wipFiber.hooks.push(hook);
@@ -147,7 +147,7 @@ function reconcileChildren(wipFiber, elements) {
     }
     if (oldFiber && !sameType) {
       oldFiber.effectTag = 'DELETION';
-      deletions.push(oldFiber);
+      root.deletions.push(oldFiber);
     }
 
     if (oldFiber) {
