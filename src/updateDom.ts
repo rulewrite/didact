@@ -1,18 +1,8 @@
-export function createDom(fiber) {
-  const dom =
-    fiber.type == 'TEXT_ELEMENT'
-      ? document.createTextNode('')
-      : document.createElement(fiber.type);
-
-  updateDom(dom, {}, fiber.props);
-
-  return dom;
-}
-
 const isEvent = (key) => key.startsWith('on');
 const isProperty = (key) => key !== 'children' && !isEvent(key);
 const isNew = (prev, next) => (key) => prev[key] !== next[key];
 const isGone = (prev, next) => (key) => !(key in next);
+
 export function updateDom(dom, prevProps, nextProps) {
   // 변경된 이벤트 리스너 제거
   Object.keys(prevProps)

@@ -1,4 +1,4 @@
-import { updateDom } from './handleDom';
+import { updateDom } from './updateDom';
 
 export function commitWork(fiber) {
   if (!fiber) {
