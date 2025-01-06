@@ -241,14 +241,22 @@ function App(props) {
   return <h1>Hi {props.name}</h1>;
 }
 
-const element = (
-  <div id="foo">
-    <App name="timothy" />
-    <a>bar</a>
-    <b />
+const container = document.getElementById('root');
 
-    <div>
-      hello
+const updateValue = (e) => {
+  rerender(e.target.value);
+};
+
+const rerender = (value) => {
+  const element = (
+    <div id="foo">
+      <App name="timothy" />
+
+      <div>
+        <input onInput={updateValue} value={value} />
+        <h2>input value: {value}</h2>
+      </div>
+
       <div>
         hello
         <div>
@@ -257,13 +265,17 @@ const element = (
             hello
             <div>
               hello
-              <div>hello</div>
+              <div>
+                hello
+                <div>hello</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
-const container = document.getElementById('root');
-Didact.render(element, container);
+  );
+  Didact.render(element, container);
+};
+
+rerender('World');
