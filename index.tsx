@@ -1,4 +1,11 @@
-import Didact from './src/index';
+import { createElement } from './src/createElement';
+import { render, useState } from './src/index';
+
+const Didact = {
+  render,
+  useState,
+  createElement,
+};
 
 // https://github.com/parcel-bundler/parcel/issues/7234#issuecomment-1130291538
 /** @jsxRuntime classic @jsx Didact.createElement */
