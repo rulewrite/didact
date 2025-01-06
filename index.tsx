@@ -1,5 +1,6 @@
 import { createElement } from './src/createElement';
-import { render, useState } from './src/index';
+import { render } from './src/render';
+import { useState } from './src/updateFunctionComponent';
 
 const Didact = {
   render,

@@ -1,6 +1,7 @@
 import { updateDom } from './updateDom';
+import { root } from './value';
 
-export function commitWork(fiber) {
+function commitWork(fiber) {
   if (!fiber) {
     return;
   }
@@ -29,4 +30,11 @@ function commitDeletion(fiber, domParent) {
   } else {
     commitDeletion(fiber.child, domParent);
   }
+}
+
+export function commitRoot() {
+  root.deletions.forEach(commitWork);
+  commitWork(root.wipRoot.child);
+  root.currentRoot = root.wipRoot;
+  root.wipRoot = null;
 }
