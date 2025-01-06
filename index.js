@@ -210,8 +210,13 @@ const Didact = {
 
 // https://github.com/parcel-bundler/parcel/issues/7234#issuecomment-1130291538
 /** @jsxRuntime classic @jsx Didact.createElement */
+function App(props) {
+  return <h1>Hi {props.name}</h1>;
+}
+
 const element = (
   <div id="foo">
+    <App name="timothy" />
     <a>bar</a>
     <b />
 
