@@ -1,13 +1,13 @@
-import { root } from './value';
+import { appState } from './appState';
 
 export function render(element, container) {
-  root.wipRoot = {
+  appState.wipRoot = {
     dom: container,
     props: {
       children: [element],
     },
-    alternate: root.currentRoot,
+    alternate: appState.currentRoot,
   };
-  root.deletions = [];
-  root.nextUnitOfWork = root.wipRoot;
+  appState.deletions = [];
+  appState.nextUnitOfWork = appState.wipRoot;
 }

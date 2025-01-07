@@ -1,4 +1,4 @@
-import { root } from './value';
+import { appState } from './appState';
 
 export function reconcileChildren(wipFiber, elements) {
   let index = 0;
@@ -33,7 +33,7 @@ export function reconcileChildren(wipFiber, elements) {
     }
     if (oldFiber && !sameType) {
       oldFiber.effectTag = 'DELETION';
-      root.deletions.push(oldFiber);
+      appState.deletions.push(oldFiber);
     }
 
     if (oldFiber) {

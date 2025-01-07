@@ -1,8 +1,8 @@
-const root = {
+const appState = {
   deletions: [],
   nextUnitOfWork: null,
   wipRoot: null,
   currentRoot: null,
 };
 
-export { root };
+export { appState };

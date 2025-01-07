@@ -1,16 +1,16 @@
+import { appState } from './appState';
 import { commitRoot } from './commit';
 import { updateFunctionComponent } from './updateFunctionComponent';
 import { updateHostComponent } from './updateHostComponent';
-import { root } from './value';
 
 export function workLoop(deadline) {
   let shouldYield = false;
-  while (root.nextUnitOfWork && !shouldYield) {
-    root.nextUnitOfWork = performUnitOfWork(root.nextUnitOfWork);
+  while (appState.nextUnitOfWork && !shouldYield) {
+    appState.nextUnitOfWork = performUnitOfWork(appState.nextUnitOfWork);
     shouldYield = deadline.timeRemaining() < 60;
   }
 
-  if (!root.nextUnitOfWork && root.wipRoot) {
+  if (!appState.nextUnitOfWork && appState.wipRoot) {
     commitRoot();
   }
 

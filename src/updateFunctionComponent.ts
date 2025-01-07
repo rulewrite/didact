@@ -1,5 +1,5 @@
+import { appState } from './appState';
 import { reconcileChildren } from './reconcileChildren';
-import { root } from './value';
 
 // 현재 진행 중(work in progress)인 fiber
 let wipFiber = null;
@@ -33,13 +33,13 @@ export function useState(initial) {
 
   const setState = (action) => {
     hook.queue.push(action);
-    root.wipRoot = {
-      dom: root.currentRoot.dom,
-      props: root.currentRoot.props,
-      alternate: root.currentRoot,
+    appState.wipRoot = {
+      dom: appState.currentRoot.dom,
+      props: appState.currentRoot.props,
+      alternate: appState.currentRoot,
     };
-    root.nextUnitOfWork = root.wipRoot;
-    root.deletions = [];
+    appState.nextUnitOfWork = appState.wipRoot;
+    appState.deletions = [];
   };
 
   wipFiber.hooks.push(hook);

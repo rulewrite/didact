@@ -1,5 +1,5 @@
+import { appState } from './appState';
 import { updateDom } from './updateDom';
-import { root } from './value';
 
 function commitWork(fiber) {
   if (!fiber) {
@@ -33,8 +33,8 @@ function commitDeletion(fiber, domParent) {
 }
 
 export function commitRoot() {
-  root.deletions.forEach(commitWork);
-  commitWork(root.wipRoot.child);
-  root.currentRoot = root.wipRoot;
-  root.wipRoot = null;
+  appState.deletions.forEach(commitWork);
+  commitWork(appState.wipRoot.child);
+  appState.currentRoot = appState.wipRoot;
+  appState.wipRoot = null;
 }
