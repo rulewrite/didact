@@ -20,6 +20,8 @@ export function render(
     parent: null,
     child: null,
     sibling: null,
+
+    alternate: appState.currentRoot,
   };
   appState.nextUnitOfWork = appState.wipRoot;
 }

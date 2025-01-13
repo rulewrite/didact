@@ -2,6 +2,7 @@ import { appState } from './appState';
 
 export function commitRoot() {
   commitWork(appState.wipRoot && appState.wipRoot.child);
+  appState.currentRoot = appState.wipRoot;
   appState.wipRoot = null;
 }
 

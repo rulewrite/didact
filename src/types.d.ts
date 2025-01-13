@@ -14,4 +14,6 @@ interface Fiber {
   parent: Fiber | null;
   child: Fiber | null;
   sibling: Fiber | null;
+
+  alternate: Fiber | null;
 }
