@@ -11,4 +11,12 @@ const element: DidactElement = {
 const container = document.getElementById('root');
 
 // 리액트 엘리먼트를 컨테이너에 렌더링
-ReactDOM.render(element, container);
+// 혼동을 피하기 위해 리액트 요소는 엘리먼트, DOM 요소는 node라 함.
+const node = document.createElement(element.type);
+node['title'] = element.props.title;
+
+const text = document.createTextNode('');
+text['nodeValue'] = element.props.children;
+
+node.appendChild(text);
+container?.appendChild(node);
