@@ -1,12 +1,12 @@
 import { appState } from './appState';
 
-export function commitRoot() {
+export function commitRoot(): void {
   commitWork(appState.wipRoot && appState.wipRoot.child);
   appState.currentRoot = appState.wipRoot;
   appState.wipRoot = null;
 }
 
-function commitWork(fiber: Fiber | null) {
+function commitWork(fiber: Fiber | null): void {
   if (!fiber) {
     return;
   }

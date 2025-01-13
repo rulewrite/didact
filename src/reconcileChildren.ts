@@ -1,4 +1,4 @@
-export function reconcileChildren(wipFiber: Fiber) {
+export function reconcileChildren(wipFiber: Fiber): void {
   // 자식 엘리먼트들 파이버로 전환
   let prevSibling: Fiber | null = null;
   wipFiber.props.children.forEach((didactElement, index) => {

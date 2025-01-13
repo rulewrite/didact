@@ -3,7 +3,7 @@ import { commitRoot } from './commitRoot';
 import { createDom } from './createDom';
 import { reconcileChildren } from './reconcileChildren';
 
-export function workLoop(deadline: IdleDeadline) {
+export function workLoop(deadline: IdleDeadline): void {
   let shouldYield = false;
 
   while (appState.nextUnitOfWork && !shouldYield) {
