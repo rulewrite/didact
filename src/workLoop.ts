@@ -1,4 +1,5 @@
 import { appState } from './appState';
+import { commitRoot } from './commitRoot';
 import { createDom } from './createDom';
 
 export function workLoop(deadline: IdleDeadline) {
@@ -10,6 +11,10 @@ export function workLoop(deadline: IdleDeadline) {
     shouldYield = deadline.timeRemaining() < 1;
   }
 
+  if (!appState.nextUnitOfWork && appState.wipRoot) {
+    commitRoot();
+  }
+
   requestIdleCallback(workLoop);
 }
 
@@ -17,11 +22,6 @@ function performUnitOfWork(fiber: Fiber): Fiber | null {
   // DOM 노드 생성
   if (!fiber.dom) {
     fiber.dom = createDom(fiber);
-  }
-
-  // 생성한 DOM 노드 부모에게 바인딩
-  if (fiber.parent && fiber.parent.dom && fiber.dom) {
-    fiber.parent.dom.appendChild(fiber.dom);
   }
 
   // 자식 엘리먼트들 파이버로 전환

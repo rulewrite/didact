@@ -9,7 +9,7 @@ export function render(
     return;
   }
 
-  appState.nextUnitOfWork = {
+  appState.wipRoot = {
     type: null,
     props: {
       children: [didactElement],
@@ -21,6 +21,7 @@ export function render(
     child: null,
     sibling: null,
   };
+  appState.nextUnitOfWork = appState.wipRoot;
 }
 
 requestIdleCallback(workLoop);
