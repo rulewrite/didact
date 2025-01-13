@@ -1,63 +1,22 @@
-import { createElement } from './src/createElement';
-import { render } from './src/render';
-import { useState } from './src/updateFunctionComponent';
-import { workLoop } from './src/workLoop';
-
-requestIdleCallback(workLoop);
-
-const Didact = {
-  render,
-  useState,
-  createElement,
+// 리액트 엘리먼트 정의
+const element: DidactElement = {
+  type: 'h1',
+  props: {
+    title: 'foo',
+    children: 'Hello',
+  },
 };
 
-// https://github.com/parcel-bundler/parcel/issues/7234#issuecomment-1130291538
-/** @jsxRuntime classic @jsx Didact.createElement */
-function App(props) {
-  return <h1>Hi {props.name}</h1>;
-}
-
-function Counter() {
-  const [state, setState] = Didact.useState(1);
-  return <h1 onClick={() => setState((c) => c + 1)}>Count: {state}</h1>;
-}
-
+// DOM에서 노드 가져오기
 const container = document.getElementById('root');
 
-const updateValue = (e) => {
-  rerender(e.target.value);
-};
+// 리액트 엘리먼트를 컨테이너에 렌더링
+// 혼동을 피하기 위해 리액트 요소는 엘리먼트, DOM 요소는 node라 함.
+const node = document.createElement(element.type);
+node['title'] = element.props.title;
 
-const rerender = (value) => {
-  const element = (
-    <div id="foo">
-      <App name="timothy" />
-      <Counter />
+const text = document.createTextNode('');
+text['nodeValue'] = element.props.children;
 
-      <div>
-        <input onInput={updateValue} value={value} />
-        <h2>input value: {value}</h2>
-      </div>
-
-      <div>
-        hello
-        <div>
-          hello
-          <div>
-            hello
-            <div>
-              hello
-              <div>
-                hello
-                <div>hello</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-  Didact.render(element, container);
-};
-
-rerender('World');
+node.appendChild(text);
+container?.appendChild(node);
