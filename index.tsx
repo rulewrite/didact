@@ -1,7 +1,9 @@
 import { createElement } from './src/createElement';
+import { render } from './src/render';
 
 const Didact = {
   createElement,
+  render,
 };
 
 // 리액트 엘리먼트 정의
@@ -18,4 +20,4 @@ const element = (
 const container = document.getElementById('root');
 
 // 리액트 엘리먼트를 컨테이너에 렌더링
-ReactDOM.render(element, container);
+render(element, container);
