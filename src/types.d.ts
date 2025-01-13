@@ -1,6 +1,7 @@
 interface DidactElement {
-  type: keyof HTMLElementTagNameMap;
+  type: keyof HTMLElementTagNameMap | 'TEXT_ELEMENT';
   props: {
-    [key: string]: string;
+    [key: string]: unknown;
+    children: Array<DidactElement | string>;
   };
 }
