@@ -1,5 +1,5 @@
 const appState: {
-  nextUnitOfWork: null;
+  nextUnitOfWork: null | Fiber;
 } = {
   nextUnitOfWork: null,
 };
