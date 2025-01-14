@@ -22,8 +22,10 @@ export function render(
     sibling: null,
 
     alternate: appState.currentRoot,
+    effectTag: null,
   };
   appState.nextUnitOfWork = appState.wipRoot;
+  appState.deletions = [];
 }
 
 requestIdleCallback(workLoop);

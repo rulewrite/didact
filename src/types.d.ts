@@ -1,8 +1,8 @@
 interface DidactElement {
   type: keyof HTMLElementTagNameMap | 'TEXT_ELEMENT';
   props: {
-    [key: string]: unknown;
-    children: Array<DidactElement>;
+    [key: string]: any;
+    children?: Array<DidactElement>;
   };
 }
 
@@ -16,4 +16,5 @@ interface Fiber {
   sibling: Fiber | null;
 
   alternate: Fiber | null;
+  effectTag: 'UPDATE' | 'PLACEMENT' | 'DELETION' | null;
 }
