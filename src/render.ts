@@ -3,13 +3,13 @@ import { workLoop } from './workLoop';
 
 export function render(
   didactElement: DidactElement,
-  container: HTMLElement | Text | null
+  container: DomNode | null
 ): void {
   if (!container) {
     return;
   }
 
-  appState.wipRoot = {
+  appState.workInProgressRootFiber = {
     type: null,
     props: {
       children: [didactElement],
@@ -21,10 +21,10 @@ export function render(
     child: null,
     sibling: null,
 
-    alternate: appState.currentRoot,
+    alternate: appState.currentRootFiber,
     effectTag: null,
   };
-  appState.nextUnitOfWork = appState.wipRoot;
+  appState.currentFiber = appState.workInProgressRootFiber;
   appState.deletions = [];
 }
 

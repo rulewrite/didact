@@ -1,12 +1,17 @@
 import { appState } from './appState';
-import { updateDom } from './createDom';
+import { updateDom } from './updateDom';
 
+/**
+ * 렌더링 결과를 DOM에 바인딩함
+ */
 export function commitRoot(): void {
   appState.deletions.forEach(commitWork);
-  commitWork(appState.wipRoot && appState.wipRoot.child);
+  commitWork(appState.workInProgressRootFiber?.child ?? null);
 
-  appState.currentRoot = appState.wipRoot;
-  appState.wipRoot = null;
+  // 현재 루트 파이버 갱신
+  appState.currentRootFiber = appState.workInProgressRootFiber;
+  // 작업 중인 루트 초기화
+  appState.workInProgressRootFiber = null;
 }
 
 function commitWork(fiber: Fiber | null): void {
@@ -14,20 +19,21 @@ function commitWork(fiber: Fiber | null): void {
     return;
   }
 
-  const domParent = fiber.parent?.dom;
-
-  if (!domParent || !fiber.dom) {
+  if (!fiber.dom) {
     return;
   }
 
+  const parentDom = fiber.parent?.dom;
+
   if (fiber.effectTag === 'PLACEMENT') {
-    domParent.appendChild(fiber.dom);
+    parentDom?.appendChild(fiber.dom);
   } else if (fiber.effectTag === 'UPDATE') {
     updateDom(fiber.dom, fiber.alternate?.props ?? {}, fiber.props);
   } else if (fiber.effectTag === 'DELETION') {
-    domParent.removeChild(fiber.dom);
+    parentDom?.removeChild(fiber.dom);
   }
 
+  // 자식, 형제 파이버에게 재귀적으로 커밋 수행
   commitWork(fiber.child);
   commitWork(fiber.sibling);
 }

@@ -6,10 +6,12 @@ interface DidactElement {
   };
 }
 
+type DomNode = HTMLElement | Text;
+
 interface Fiber {
   type: DidactElement['type'] | null;
   props: DidactElement['props'];
-  dom: HTMLElement | Text | null;
+  dom: DomNode | null;
 
   parent: Fiber | null;
   child: Fiber | null;
