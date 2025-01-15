@@ -20,4 +20,40 @@ const element = (
 const container = document.getElementById('root');
 
 // 리액트 엘리먼트를 컨테이너에 렌더링
-render(element, container);
+const updateValue = (event: any) => {
+  rerender(event.target.value);
+};
+
+let isShow = 0;
+const removeItem = () => {
+  ++isShow;
+
+  rerender('delete');
+};
+
+const rerender = (value: any) => {
+  const element = (
+    <div>
+      <ul>
+        {isShow < 1 ? <li>삭제대상1</li> : null}
+        <li>첫번째{isShow}</li>
+        {isShow < 2 ? <li>삭제대상2</li> : null}
+        <li>세번째{isShow}</li>
+        {isShow < 3 ? <li>삭제대상3</li> : null}
+      </ul>
+
+      <button type="button" onClick={removeItem}>
+        delete
+      </button>
+
+      <hr />
+
+      <input onInput={updateValue} value={value} />
+      <h2>Hello {value}</h2>
+    </div>
+  );
+
+  Didact.render(element, container);
+};
+
+rerender('World');
