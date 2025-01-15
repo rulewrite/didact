@@ -35,6 +35,10 @@ export function workLoop(idleDeadline: IdleDeadline): void {
  * @returns 다음 작업의 대상이 될 파이버를 반환
  */
 function performFiber(fiber: Fiber): Fiber | null {
+  if (fiber.props.children) {
+    fiber.props.children = fiber.props.children.filter(Boolean);
+  }
+
   // 파이버에 대응하는 DOM 노드가 없다면 생성
   if (!fiber.dom) {
     fiber.dom = createDom(fiber);
