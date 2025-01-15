@@ -9,7 +9,7 @@ interface DidactElement {
 type DomNode = HTMLElement | Text;
 
 interface _OriginFiber<T> {
-  type: T;
+  type: T | null;
   props: DidactElement['props'];
   dom: DomNode | null;
 
