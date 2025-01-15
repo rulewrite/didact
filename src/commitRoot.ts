@@ -7,11 +7,6 @@ import { updateDom } from './updateDom';
 export function commitRoot(): void {
   appState.deletions.forEach(commitWork);
   commitWork(appState.workInProgressRootFiber?.child ?? null);
-
-  // 현재 루트 파이버 갱신
-  appState.currentRootFiber = appState.workInProgressRootFiber;
-  // 작업 중인 루트 초기화
-  appState.workInProgressRootFiber = null;
 }
 
 function commitWork(fiber: Fiber | null): void {
