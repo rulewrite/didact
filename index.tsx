@@ -4,6 +4,7 @@ import { render } from './src/render';
 const Didact = {
   createElement,
   render,
+  useState: () => [],
 };
 
 // 리액트 엘리먼트 정의
@@ -40,6 +41,12 @@ function Component(props: any) {
   return <h1>함수 컴포넌트 {props.name}</h1>;
 }
 
+function Counter() {
+  const [state, setState] = Didact.useState(1);
+
+  return <h1 onClick={() => setState((count) => count + 1)}>Count: {state}</h1>;
+}
+
 // DOM에서 노드 가져오기
 const container = document.getElementById('root');
 
@@ -47,6 +54,7 @@ const rerender = (value: any) => {
   const element = (
     <div>
       <Component name="티모시" />
+      <Counter />
       <ul>
         {isShow < 1 ? <li>삭제대상1</li> : null}
         <li>첫번째{isShow}</li>
