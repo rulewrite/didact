@@ -1,10 +1,11 @@
 import { createElement } from './src/createElement';
+import { useState } from './src/functionComponent';
 import { render } from './src/render';
 
 const Didact = {
   createElement,
   render,
-  useState: () => [],
+  useState,
 };
 
 // 리액트 엘리먼트 정의

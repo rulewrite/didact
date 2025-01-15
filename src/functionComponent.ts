@@ -5,3 +5,7 @@ export function updateFunctionComponent(fiber: FunctionFiber) {
 
   fiber.props.children = [fiber.type(fiber.props)];
 }
+
+export function useState<T = unknown>(initial: T) {
+  return [];
+}
