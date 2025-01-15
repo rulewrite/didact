@@ -1,4 +1,5 @@
 import { appState } from './appState';
+import { createFiber } from './createFiber';
 import { workLoop } from './workLoop';
 
 export function render(
@@ -9,21 +10,15 @@ export function render(
     return;
   }
 
-  appState.workInProgressRootFiber = {
-    type: null,
+  appState.workInProgressRootFiber = createFiber({
     props: {
       children: [didactElement],
     },
 
     dom: container,
 
-    parent: null,
-    child: null,
-    sibling: null,
-
     alternate: appState.currentRootFiber,
-    effectTag: null,
-  };
+  });
   appState.currentFiber = appState.workInProgressRootFiber;
   appState.deletions = [];
 }

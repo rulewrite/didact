@@ -1,4 +1,5 @@
 import { appState } from './appState';
+import { createFiber } from './createFiber';
 
 /**
  * 전달한 파이버의 직속 자식(didactElement)들을 재조정하여 새 UI 상태에 맞게 파이버 트리 업데이트
@@ -67,35 +68,28 @@ function getNewFiber(
     oldFiber && didactElement && didactElement.type === oldFiber.type;
 
   if (isSameType) {
-    return {
+    return createFiber({
       type: didactElement.type,
       props: didactElement.props,
 
       dom: oldFiber.dom,
 
       parent,
-      child: null,
-      sibling: null,
 
       alternate: oldFiber,
       effectTag: 'UPDATE',
-    };
+    });
   }
 
   if (didactElement) {
-    return {
+    return createFiber({
       type: didactElement.type,
       props: didactElement.props,
 
-      dom: null,
-
       parent,
-      child: null,
-      sibling: null,
 
-      alternate: null,
       effectTag: 'PLACEMENT',
-    };
+    });
   }
 
   return null;
