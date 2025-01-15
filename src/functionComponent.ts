@@ -31,6 +31,11 @@ export function useState<T = unknown>(initial: T) {
     queue: [],
   };
 
+  const actions = oldHook ? oldHook.queue : [];
+  actions.forEach((action) => {
+    hook.state = action(hook.state);
+  });
+
   const setState = (action: (typeof hook)['queue'][number]) => {
     hook.queue.push(action);
 
