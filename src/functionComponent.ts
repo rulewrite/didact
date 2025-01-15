@@ -14,5 +14,20 @@ export function updateFunctionComponent(fiber: FunctionFiber) {
 }
 
 export function useState<T = unknown>(initial: T) {
-  return [];
+  if (!currentFiber) {
+    return [];
+  }
+
+  // 이전 훅 가져와서 새 훅의 초기 상태 값으로 설정
+  const oldHook =
+    currentFiber.alternate &&
+    currentFiber.alternate.hooks &&
+    (currentFiber.alternate.hooks[hookIndex] as Hook<T>);
+  const hook: Hook<T> = {
+    state: oldHook ? oldHook.state : initial,
+  };
+
+  currentFiber.hooks.push(hook);
+  hookIndex++;
+  return [hook.state];
 }
