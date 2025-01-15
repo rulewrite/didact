@@ -29,17 +29,19 @@ export function reconcileChildren(parent: Fiber): void {
     }
 
     // 새 파이버를 트리로 연결
-    const isFirstChild = index === 0;
-    if (isFirstChild) {
-      // 첫번째 자식인 경우 부모의 child로 설정
-      parent.child = newFiber;
-    } else if (didactElement) {
-      // 두번째 자식의 경우 형제로 연결
-      prevSibling && (prevSibling.sibling = newFiber);
-    }
+    if (newFiber) {
+      const isFirstChild = !parent.child;
+      if (isFirstChild) {
+        // 첫번째 자식인 경우 부모의 child로 설정
+        parent.child = newFiber;
+      } else {
+        // 두번째 자식의 경우 형제로 연결
+        prevSibling && (prevSibling.sibling = newFiber);
+      }
 
-    // 현재 파이버를 다음 반복에서 형제 관계로 이어주기 위해 prevSibling에 저장
-    prevSibling = newFiber;
+      // 현재 파이버를 다음 반복에서 형제 관계로 이어주기 위해 prevSibling에 저장
+      prevSibling = newFiber;
+    }
 
     // 다음 순회 대상 설정
     if (oldFiber) {
