@@ -1,6 +1,7 @@
 import { appState } from './appState';
 import { commitRoot } from './commitRoot';
 import { createDom } from './createDom';
+import { updateFunctionComponent } from './functionComponent';
 import { reconcileChildren } from './reconcileChildren';
 
 export function workLoop(idleDeadline: IdleDeadline): void {
@@ -49,6 +50,9 @@ function performFiber(fiber: Fiber): Fiber | null {
     updateHostComponent(fiber);
   }
 
+  // 파이버의 자식 요소들 재조정
+  reconcileChildren(fiber);
+
   /**
    * 다음 순회 대상 반환 (DFS: 깊이 우선 탐색)
    * 자식 > 형제 > 부모
@@ -67,21 +71,9 @@ function performFiber(fiber: Fiber): Fiber | null {
   return nextFiber;
 }
 
-function updateFunctionComponent(fiber: FunctionFiber) {
-  if (!fiber.type) {
-    return;
-  }
-
-  fiber.props.children = [fiber.type(fiber.props)];
-  reconcileChildren(fiber);
-}
-
 function updateHostComponent(fiber: HostFiber) {
   // 파이버에 대응하는 DOM 노드가 없다면 생성
   if (!fiber.dom) {
     fiber.dom = createDom(fiber);
   }
-
-  // 파이버의 자식 요소들 재조정
-  reconcileChildren(fiber);
 }
