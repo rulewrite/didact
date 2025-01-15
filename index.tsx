@@ -31,9 +31,28 @@ const removeItem = () => {
   rerender('delete');
 };
 
+function Component(props: any) {
+  /*
+  jsx > js로 변환 시
+  function App(props) {
+    return Didact.createElement(
+      "h1",
+      null,
+      "함수 컴포넌트 ",
+      props.name
+    )
+  }
+  const element = Didact.createElement(App, {
+    name: "티모시",
+  })
+  */
+  return <h1>함수 컴포넌트 {props.name}</h1>;
+}
+
 const rerender = (value: any) => {
   const element = (
     <div>
+      <Component name="티모시" />
       <ul>
         {isShow < 1 ? <li>삭제대상1</li> : null}
         <li>첫번째{isShow}</li>

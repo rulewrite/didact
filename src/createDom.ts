@@ -1,10 +1,6 @@
 import { updateDom } from './updateDom';
 
-export function createDom(fiber: Fiber): DomNode | null {
-  if (!fiber.type) {
-    return null;
-  }
-
+export function createDom(fiber: HostFiber): DomNode | null {
   const dom =
     fiber.type === 'TEXT_ELEMENT'
       ? document.createTextNode('')
