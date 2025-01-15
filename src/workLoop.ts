@@ -67,7 +67,10 @@ function performFiber(fiber: Fiber): Fiber | null {
   return nextFiber;
 }
 
-function updateFunctionComponent(fiber: FunctionFiber) {}
+function updateFunctionComponent(fiber: FunctionFiber) {
+  fiber.props.children = [fiber.type(fiber.props)];
+  reconcileChildren(fiber);
+}
 
 function updateHostComponent(fiber: HostFiber) {
   // 파이버에 대응하는 DOM 노드가 없다면 생성
