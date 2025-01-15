@@ -1,3 +1,6 @@
+import { appState } from './appState';
+import { createFiber } from './createFiber';
+
 let currentFiber: FunctionFiber | null = null;
 let hookIndex = -1;
 
@@ -25,9 +28,23 @@ export function useState<T = unknown>(initial: T) {
     (currentFiber.alternate.hooks[hookIndex] as Hook<T>);
   const hook: Hook<T> = {
     state: oldHook ? oldHook.state : initial,
+    queue: [],
   };
 
-  currentFiber.hooks.push(hook);
+  const setState = (action: (typeof hook)['queue'][number]) => {
+    hook.queue.push(action);
+
+    // workLoop에서 렌더링을 수행할 수 있도록 값 설정
+    appState.workInProgressRootFiber = createFiber({
+      dom: appState.currentRootFiber?.dom,
+      props: appState.currentRootFiber?.props,
+      alternate: appState.currentRootFiber,
+    });
+    appState.currentFiber = appState.workInProgressRootFiber;
+    appState.deletions = [];
+  };
+
+  currentFiber.hooks.push(hook as Hook<unknown>);
   hookIndex++;
-  return [hook.state];
+  return [hook.state, setState] as const;
 }

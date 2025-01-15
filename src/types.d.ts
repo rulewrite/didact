@@ -10,6 +10,7 @@ type DomNode = HTMLElement | Text;
 
 interface Hook<T = unknown> {
   state: T;
+  queue: Array<(value: T) => T>;
 }
 
 interface _OriginFiber<T> {
