@@ -8,8 +8,8 @@ interface DidactElement {
 
 type DomNode = HTMLElement | Text;
 
-interface Fiber {
-  type: DidactElement['type'] | null;
+interface _OriginFiber<T> {
+  type: T;
   props: DidactElement['props'];
   dom: DomNode | null;
 
@@ -20,3 +20,7 @@ interface Fiber {
   alternate: Fiber | null;
   effectTag: 'UPDATE' | 'PLACEMENT' | 'DELETION' | null;
 }
+
+type FunctionFiber = _OriginFiber<Function>;
+type HostFiber = _OriginFiber<DidactElement['type']>;
+type Fiber = FunctionFiber | HostFiber;

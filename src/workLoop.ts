@@ -29,6 +29,10 @@ export function workLoop(idleDeadline: IdleDeadline): void {
   requestIdleCallback(workLoop);
 }
 
+function isFunctionComponent(fiber: Fiber): fiber is FunctionFiber {
+  return fiber.type instanceof Function;
+}
+
 /**
  *
  * @param fiber
@@ -39,13 +43,11 @@ function performFiber(fiber: Fiber): Fiber | null {
     fiber.props.children = fiber.props.children.filter(Boolean);
   }
 
-  // 파이버에 대응하는 DOM 노드가 없다면 생성
-  if (!fiber.dom) {
-    fiber.dom = createDom(fiber);
+  if (isFunctionComponent(fiber)) {
+    updateFunctionComponent(fiber);
+  } else {
+    updateHostComponent(fiber);
   }
-
-  // 파이버의 자식 요소들 재조정
-  reconcileChildren(fiber);
 
   /**
    * 다음 순회 대상 반환 (DFS: 깊이 우선 탐색)
@@ -63,4 +65,16 @@ function performFiber(fiber: Fiber): Fiber | null {
     nextFiber = nextFiber.parent;
   }
   return nextFiber;
+}
+
+function updateFunctionComponent(fiber: FunctionFiber) {}
+
+function updateHostComponent(fiber: HostFiber) {
+  // 파이버에 대응하는 DOM 노드가 없다면 생성
+  if (!fiber.dom) {
+    fiber.dom = createDom(fiber);
+  }
+
+  // 파이버의 자식 요소들 재조정
+  reconcileChildren(fiber);
 }
