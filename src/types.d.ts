@@ -19,6 +19,8 @@ interface _OriginFiber<T> {
 
   alternate: Fiber | null;
   effectTag: 'UPDATE' | 'PLACEMENT' | 'DELETION' | null;
+
+  hooks: Array<unknown>;
 }
 
 type FunctionFiber = _OriginFiber<Function>;

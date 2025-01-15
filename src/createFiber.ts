@@ -12,6 +12,8 @@ export function createFiber(fiber: Partial<Fiber>): Fiber {
     alternate: null,
     effectTag: null,
 
+    hooks: [],
+
     ...fiber,
   };
 }
