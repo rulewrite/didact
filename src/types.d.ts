@@ -8,9 +8,11 @@ interface DidactElement {
 
 type DomNode = HTMLElement | Text;
 
+type Action<T = unknown> = (value: T) => T;
+
 interface Hook<T = unknown> {
   state: T;
-  queue: Array<(value: T) => T>;
+  actionQueue: Array<Action<T>>;
 }
 
 interface _OriginFiber<T> {
