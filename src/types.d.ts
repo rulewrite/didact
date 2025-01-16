@@ -8,6 +8,13 @@ interface DidactElement {
 
 type DomNode = HTMLElement | Text;
 
+type Action<T = unknown> = (value: T) => T;
+
+interface Hook<T = unknown> {
+  state: T;
+  actionQueue: Array<Action<T>>;
+}
+
 interface _OriginFiber<T> {
   type: T | null;
   props: DidactElement['props'];
@@ -19,6 +26,8 @@ interface _OriginFiber<T> {
 
   alternate: Fiber | null;
   effectTag: 'UPDATE' | 'PLACEMENT' | 'DELETION' | null;
+
+  hooks: Array<Hook>;
 }
 
 type FunctionFiber = _OriginFiber<Function>;

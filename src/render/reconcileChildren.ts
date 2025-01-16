@@ -1,5 +1,5 @@
-import { appState } from './appState';
-import { createFiber } from './createFiber';
+import { appState } from '../appState';
+import { createFiber } from '../utils/createFiber';
 
 /**
  * 전달한 파이버의 직속 자식(didactElement)들을 재조정하여 새 UI 상태에 맞게 파이버 트리 업데이트
