@@ -7,7 +7,7 @@ export function createElement(
     type,
     props: {
       ...props,
-      children: children.map((child) => {
+      children: children?.map((child) => {
         if (typeof child === 'object') {
           return child;
         }
