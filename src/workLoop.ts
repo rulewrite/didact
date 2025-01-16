@@ -1,7 +1,11 @@
 import { appState } from './appState';
-import { commitRoot } from './commitRoot';
-import { performFiber } from './performFiber';
+import { commitRoot } from './commit/commitRoot';
+import { performFiber } from './render/performFiber';
 
+/**
+ * 렌더 > 커밋(실제 돔 바인딩) 단계로 수행
+ * @param idleDeadline
+ */
 export function workLoop(idleDeadline: IdleDeadline): void {
   // 파이버 해석하며 DOM 생성
   while (appState.currentFiber) {

@@ -1,6 +1,5 @@
 import { appState } from './appState';
-import { createFiber } from './createFiber';
-import { workLoop } from './workLoop';
+import { createFiber } from './utils/createFiber';
 
 export function render(
   didactElement: DidactElement,
@@ -22,5 +21,3 @@ export function render(
   appState.currentFiber = appState.workInProgressRootFiber;
   appState.deletions = [];
 }
-
-requestIdleCallback(workLoop);

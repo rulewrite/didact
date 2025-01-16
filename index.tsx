@@ -1,12 +1,4 @@
-import { createElement } from './src/createElement';
-import { useState } from './src/functionComponent';
-import { render } from './src/render';
-
-const Didact = {
-  createElement,
-  render,
-  useState,
-};
+import { Didact } from './src';
 
 // 리액트 엘리먼트 정의
 // https://github.com/parcel-bundler/parcel/issues/7234#issuecomment-1130291538

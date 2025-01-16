@@ -1,4 +1,4 @@
-import { updateDom } from './updateDom';
+import { updateDom } from '../utils/updateDom';
 
 export function updateHostComponent(fiber: HostFiber) {
   // 파이버에 대응하는 DOM 노드가 없다면 생성

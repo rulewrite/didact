@@ -1,5 +1,5 @@
-import { appState } from './appState';
-import { updateDom } from './updateDom';
+import { appState } from '../appState';
+import { updateDom } from '../utils/updateDom';
 
 /**
  * 렌더링 결과를 DOM에 바인딩함

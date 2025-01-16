@@ -1,5 +1,5 @@
-import { appState } from './appState';
-import { createFiber } from './createFiber';
+import { appState } from '../appState';
+import { createFiber } from '../utils/createFiber';
 
 let currentFiber: FunctionFiber | null = null;
 let hookIndex = -1;

@@ -1,5 +1,5 @@
-import { updateFunctionComponent } from './functionComponent';
 import { reconcileChildren } from './reconcileChildren';
+import { updateFunctionComponent } from './updateFunctionComponent';
 import { updateHostComponent } from './updateHostComponent';
 
 function isFunctionComponent(fiber: Fiber): fiber is FunctionFiber {
