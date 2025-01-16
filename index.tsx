@@ -9,15 +9,6 @@ const Didact = {
 // 리액트 엘리먼트 정의
 // https://github.com/parcel-bundler/parcel/issues/7234#issuecomment-1130291538
 /** @jsxRuntime classic @jsx Didact.createElement */
-const element = (
-  <div id="foo">
-    <a>bar</a>
-    <b />
-  </div>
-);
-
-// DOM에서 노드 가져오기
-const container = document.getElementById('root');
 
 // 리액트 엘리먼트를 컨테이너에 렌더링
 const updateValue = (event: any) => {
@@ -48,6 +39,9 @@ function Component(props: any) {
   */
   return <h1>함수 컴포넌트 {props.name}</h1>;
 }
+
+// DOM에서 노드 가져오기
+const container = document.getElementById('root');
 
 const rerender = (value: any) => {
   const element = (
